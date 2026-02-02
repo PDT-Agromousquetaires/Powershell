@@ -1,0 +1,32 @@
+# Liste de commandes utiles dans Powershell
+
+## liste les services actifs ou non dans une grille (gridview)
+gsv | ogv
+====ou====
+Get-Service | Out-GridView
+#gsv = Get-Service
+#ogv = Out-GridView
+
+## obtenir la version de Powershell
+$PSVersionTable
+====ou===
+$Host.version.major
+
+## information sur une commande
+GET-HELP
+
+## En ajoutant éventuellement les commutateurs : “-Example” ou “-Full” ou “-Detailed” ou “-online” 
+GET-HELP -Exemple
+
+## lister les modules 
+Get-Command –CommandType cmdlet | group verb | sort count –Descending
+
+## Voir la clé OEM d'un poste
+wmic path softwarelicensingservice get OA3xOriginalProductKey
+
+## Connaitre les groupes AD d'un utilisateur
+get-adprincipalgroupmembership admin.jsicot | select name | Out-Gridview
+
+## Extraction AD
+$LogDate = get-date -f yyyyMMddhhmm
+Get-ADComputer -filter * -Properties DisplayName,operatingSystem,whenCreated,LastLogonDate,CanonicalName | select Name,SamAccountName,DisplayName,CanonicalName,operatingSystem,Enabled,whenCreated,LastLogonDate | Export-Csv -Encoding UTF8 -NoTypeInformation "d:\temp\ADComputer.csv"
